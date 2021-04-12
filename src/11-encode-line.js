@@ -9,21 +9,25 @@
  *
  */
 function encodeLine(str) {
-  const res = new Map();
   const strAr = str.split('');
+  let reslt = '';
 
-  strAr.forEach((element) => {
-    if (res.has(element)) {
-      res.set(element, res.get(element) + 1);
-    } else {
-      res.set(element, 1);
+  for (let i = 0; i < strAr.length; i++) {
+    let count = 1;
+    let next = i + 1;
+
+    while (strAr[next] === strAr[i] && next < strAr.length) {
+      count++;
+      next++;
     }
-  });
-  let retrnStr = '';
-  res.forEach((v, k) => {
-    retrnStr += `${v > 1 ? v : ''}${k}`;
-  });
-  return retrnStr;
+    i += count - 1;
+    if (count === 1) {
+      reslt += `${strAr[i]}`;
+    } else {
+      reslt += `${count}${strAr[i]}`;
+    }
+  }
+  return reslt;
 }
 
 module.exports = encodeLine;
